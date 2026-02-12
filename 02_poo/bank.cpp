@@ -30,7 +30,8 @@ class BankAccount {
             }
         }
 
-        // const member function: a member function that does not modify the state of the object.
+        // const member function: 
+        // a member function that does not modify the state of the object.
         void getBalance() const { 
             std::cout << "Current balance: " << this->balance << std::endl; 
         }
