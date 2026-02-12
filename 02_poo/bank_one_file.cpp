@@ -6,11 +6,11 @@ class BankAccount {
     
     public:
         
-        /*
-        BankAccount(double initial_balance) {
-            this->balance = initial_balance;
-        }
-        */
+        
+        //BankAccount(double initial_balance) {
+        //    this->balance = initial_balance;
+        //}
+        
 
         // The constructor can also be defined using an initializer list, 
         // which is a more efficient way to initialize member variables.
@@ -35,6 +35,10 @@ class BankAccount {
         void getBalance() const { 
             std::cout << "Current balance: " << this->balance << std::endl; 
         }
+
+        ~BankAccount() { 
+            std::cout << "Bank account is being destroyed." << std::endl; 
+        }
 };
 
 int main () {
@@ -44,5 +48,6 @@ int main () {
     myAccount.getBalance();
     myAccount.withdraw(30); 
     myAccount.getBalance();
+    std::cout << "END OF MAIN FUNCTION" << std::endl;
     return 0;
 }
