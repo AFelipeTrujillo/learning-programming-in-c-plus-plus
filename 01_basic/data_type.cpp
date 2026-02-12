@@ -23,8 +23,10 @@ int main()  {
 
     std::string student_name;
     std::string age_in_string;
+    
     std::cout << "Please enter your name:" << std::endl;
-    std::cin >> student_name;
+    std::getline(std::cin, student_name);
+    
     std::cout << "Now, enter you age" << std::endl;
     std::cin >> age_in_string;
 
