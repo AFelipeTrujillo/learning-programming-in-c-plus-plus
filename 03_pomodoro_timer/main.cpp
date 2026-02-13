@@ -2,6 +2,8 @@
 #include <chrono>
 #include <thread>
 
+#include "PomodoroConfig.h"
+
 
 void startTimer(int minutes, const std::string& label) {
     auto seconds = std::chrono::minutes(minutes);
@@ -32,41 +34,10 @@ void startTimer(int minutes, const std::string& label) {
 
 int main(int argc, char* argv[]) {
     
-    int workTime = 25;
-    int breakTime = 5;
-    std::string mode;
+    PomodoroConfig pomodoroConfig(argc, argv);
 
-    for (int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
-
-        if ((arg == "--work" || arg == "-w") && i + 1 < argc) {
-            workTime = std::stoi(argv[++i]);
-        }
-
-        else if ((arg == "--break" || arg == "-b") && i + 1 < argc) {
-            breakTime = std::stoi(argv[++i]);
-        }
-
-        else if ((arg == "--mode" || arg == "-m") && i + 1 < argc) {
-            mode = argv[++i];
-            if(mode.compare("long") == 0) {
-                workTime = 50;
-                breakTime = 10;
-            } else if (mode.compare("short") == 0) {
-                workTime = 15;
-                breakTime = 3;
-            }
-        }
-
-        else if (arg == "--help" || arg == "-h") {
-            std::cout << "Usage: ./pomodoro [options]\n"
-                      << "Options:\n"
-                      << "  -w, --work MINS    Set work time (default 25)\n"
-                      << "  -b, --break MINS   Set break time (default 5)\n"
-                      << "  -h, --help         Show this help\n";
-            return 0;
-        }
-    }
+    int workTime = pomodoroConfig.getWorkTime();
+    int breakTime = pomodoroConfig.getBreakTime();
 
     std::cout << "=== C++ POMODORO TIMER ===" << std::endl;
     
