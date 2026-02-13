@@ -31,24 +31,41 @@ void startTimer(int minutes, const std::string& label) {
 }
 
 int main(int argc, char* argv[]) {
-    std::string workTimeStr;
-    std::string breakTimeStr;
-    int workTime;
-    int breakTime;
+    
+    int workTime = 25;
+    int breakTime = 5;
+    std::string mode;
 
-    try {
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
 
-        std::cout << "Enter the work time (min): " << std::endl;
-        std::cin >> workTimeStr;
-        workTime = stoi(workTimeStr);
+        if ((arg == "--work" || arg == "-w") && i + 1 < argc) {
+            workTime = std::stoi(argv[++i]);
+        }
 
-        std::cout << "Enter the break time (min): " << std::endl;
-        std::cin >> breakTimeStr;
-        breakTime = stoi(breakTimeStr);
+        else if ((arg == "--break" || arg == "-b") && i + 1 < argc) {
+            breakTime = std::stoi(argv[++i]);
+        }
 
-    } catch(const std::exception& e) {
-        std::cerr << "An unexpected error occurred: " << e.what() << std::endl;
-        exit(EXIT_FAILURE);
+        else if ((arg == "--mode" || arg == "-m") && i + 1 < argc) {
+            mode = argv[++i];
+            if(mode.compare("long") == 0) {
+                workTime = 50;
+                breakTime = 10;
+            } else if (mode.compare("short") == 0) {
+                workTime = 15;
+                breakTime = 3;
+            }
+        }
+
+        else if (arg == "--help" || arg == "-h") {
+            std::cout << "Usage: ./pomodoro [options]\n"
+                      << "Options:\n"
+                      << "  -w, --work MINS    Set work time (default 25)\n"
+                      << "  -b, --break MINS   Set break time (default 5)\n"
+                      << "  -h, --help         Show this help\n";
+            return 0;
+        }
     }
 
     std::cout << "=== C++ POMODORO TIMER ===" << std::endl;
